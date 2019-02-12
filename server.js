@@ -20,6 +20,7 @@ app.get('/', (req, res) => res.send('hola'));
 sendemail = async ({name, email, message}, res) =>{
     let nodemailer = require('nodemailer');
 
+    console.log(process.env.MAIL_SERVER);
     let transporter = nodemailer.createTransport({
         host: process.env.MAIL_SERVER,
         port: 465,
