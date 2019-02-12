@@ -11,37 +11,37 @@ app.options('*', cors()) // include before other routes
 app.use(bodyParser.json())
 app.listen(3001)
 
-app.post('/mail', async (req, res) =>{
 
+app.post('/mail', (req, res) => sendemail(req.body, res));
+app.get('/', (req, res) => res.send('Hello'));
+
+
+sendemail = async ({name, email, message}, res) =>{
     let nodemailer = require('nodemailer');
 
     console.log(process.env.MAIL_SERVER);
     let transporter = nodemailer.createTransport({
-      host: process.env.MAIL_SERVER,
-      port: 465,
-      secure: true, // true for 465, false for other ports
-      name: process.env.MAIL_SERVER,
-      auth: {
+        host: process.env.MAIL_SERVER,
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        name: process.env.MAIL_SERVER,
+        auth: {
         user: process.env.MAIL_USER, // generated ethereal user
         pass: process.env.MAIL_PASS // generated ethereal password
-      }
+        }
     });
 
     let mailOptions = { 
-      from: process.env.MAIL_USER, // sender address
-      to: "chrisdirks.developer@gmail.com", // list of receivers
-      subject: req.body.name + ' ' + req.body.email, // Subject line
-      text: req.body.message, // plain text body
-      html: "" // html body
+        from: process.env.MAIL_USER, // sender address
+        to: "chrisdirks.developer@gmail.com", // list of receivers
+        subject: name + ' ' + email, // Subject line
+        text: message, // plain text body
+        html: "" // html body
     };
 
     let info = await transporter.sendMail(mailOptions)
 
     console.log("Message sent: %s", info.messageId);
 
-    res.status(200);
-})
-
-app.get('/', async (req, res) =>{
-    res.status(200);
-})
+    res.send('email sent')
+}
