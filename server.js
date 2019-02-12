@@ -14,7 +14,7 @@ app.listen(port)
 
 
 app.post('/mail', (req, res) => sendemail(req.body, res));
-app.get('/', (req, res) => res.send('Hello'));
+app.get('/', (req, res) => console.log('hello'));
 
 
 sendemail = async ({name, email, message}, res) =>{
