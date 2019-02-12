@@ -9,7 +9,7 @@ require('dotenv').config();
 app.options('*', cors()) // include before other routes
 //app.use(express.static(path.join(__dirname, '../chris-website/build')));
 app.use(bodyParser.json())
-app.listen(3001)
+app.listen(3000)
 
 
 app.post('/mail', (req, res) => sendemail(req.body, res));
@@ -19,7 +19,6 @@ app.get('/', (req, res) => res.send('Hello'));
 sendemail = async ({name, email, message}, res) =>{
     let nodemailer = require('nodemailer');
 
-    console.log(process.env.MAIL_SERVER);
     let transporter = nodemailer.createTransport({
         host: process.env.MAIL_SERVER,
         port: 465,
