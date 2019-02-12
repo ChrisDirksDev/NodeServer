@@ -9,7 +9,8 @@ require('dotenv').config();
 app.options('*', cors()) // include before other routes
 //app.use(express.static(path.join(__dirname, '../chris-website/build')));
 app.use(bodyParser.json())
-app.listen(3000)
+let port = process.env.PORT || 3000; 
+app.listen(port)
 
 
 app.post('/mail', (req, res) => sendemail(req.body, res));
