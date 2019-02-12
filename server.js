@@ -7,7 +7,7 @@ const app = express();
 require('dotenv').config();
 
 app.options('*', cors()) // include before other routes
-app.use(express.static(path.join(__dirname, '../chris-website/build')));
+//app.use(express.static(path.join(__dirname, '../chris-website/build')));
 app.use(bodyParser.json())
 app.listen(3001)
 
@@ -28,9 +28,9 @@ app.post('/mail', async (req, res) =>{
     });
 
     let mailOptions = { 
-      from: req.body.name + ' ' + req.body.email, // sender address
+      from: process.env.MAIL_USER, // sender address
       to: "chrisdirks.developer@gmail.com", // list of receivers
-      subject: "Hello ✔", // Subject line
+      subject: req.body.name + ' ' + req.body.email, // Subject line
       text: req.body.message, // plain text body
       html: "" // html body
     };
