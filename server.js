@@ -13,7 +13,8 @@ let port = process.env.PORT || 3000;
 app.listen(port)
 
 
-app.post('/mail', (req, res) => sendemail(req.body, res));
+app.post('/mail', (req, res) => sendemail(req.body, res).catch(error => {console.log(error)}));
+));
 app.get('/', (req, res) => res.send('hola'));
 
 
