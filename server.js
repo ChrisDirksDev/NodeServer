@@ -14,7 +14,6 @@ app.listen(port)
 
 
 app.post('/mail', (req, res) => sendemail(req.body, res).catch(error => {console.log(error)}));
-));
 app.get('/', (req, res) => res.send('hola'));
 
 
